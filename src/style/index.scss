@@ -1,0 +1,27 @@
+@import './iconfont.css';
+
+.test {
+  // 可以通过 @apply 多个样式封装整体样式
+  @apply mt-4 ml-4;
+
+  padding-top: 4px;
+  color: red;
+}
+
+.icon {
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+  vertical-align: -0.15em;
+  fill: currentcolor;
+}
+
+// 全局字体引用 DEMO
+// @font-face {
+//   font-family: TiTi;
+//   src: url('./fonts/PangMenZhengDaoBiaoTiTi-1.ttf');
+// }
+
+// .titi {
+//   font-family: TiTi, Arial, sans-serif;
+// }
