@@ -19,14 +19,40 @@
 </template>
 
 <script lang="ts" setup>
+import { useUserStore } from '@/store'
+import { onShareAppMessage } from '@dcloudio/uni-app'
+import { getLastItem } from '@/utils'
 // 获取屏幕边界到安全区域距离
 const { safeAreaInsets } = uni.getSystemInfoSync()
 
 const description = ref(
   'Rookie uniapp 是一个集成了多种工具和技术的 uniapp 开发模板，由 uniapp + Vue3 + Ts + Vite4 + UnoCss + UniUI + VSCode 构建，模板具有代码提示、自动格式化、统一配置、代码片段等功能，并内置了许多常用的基本组件和基本功能，让你编写 uniapp 拥有 best 体验。',
 )
+const userStore = useUserStore()
+
+const isLogined = computed(() => {
+  console.log('userStore=>', userStore)
+  const pages = getCurrentPages()
+  console.log('pages:', pages)
+  return userStore.isLogined
+})
 
 onLoad(() => {})
+
+const loginRoute = '/pages/login/index'
+
+onReady(() => {
+  const pages = getCurrentPages()
+  const lastPage = getLastItem(pages)
+  console.log('route-interception.vue onReady last page:', isLogined.value, lastPage)
+  const currRoute = (lastPage as any).$page
+  console.log('route-interception.vue onReady currRoute:', currRoute)
+  if (!isLogined.value) {
+    // redirect时都需要 encodeURIComponent 一下，否则获取到的参数不对
+    const redirectRoute = `${loginRoute}?redirect=${encodeURIComponent(currRoute.fullPath)}`
+    uni.redirectTo({ url: redirectRoute })
+  }
+})
 
 /** 激活“分享给好友” */
 onShareAppMessage((options: Page.ShareAppMessageOption): Page.CustomShareContent => {
