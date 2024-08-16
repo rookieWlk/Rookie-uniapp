@@ -1,10 +1,14 @@
 <route lang="json5">
 {
-  style: { navigationBarTitleText: '示例' },
+  style: {
+    navigationStyle: 'custom',
+    navigationBarTitleText: '示例',
+  },
 }
 </route>
 
 <template>
+  <wd-navbar fixed placeholder title="示例" safeAreaInsetTop></wd-navbar>
   <view class="bg-slate-100 min-h-full box-border pb-1">
     <view class="tab-container sticky top-0 bg-white px-4 center h-12 z-1">
       <view

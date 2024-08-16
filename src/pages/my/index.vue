@@ -1,6 +1,9 @@
 <route lang="json5">
 {
-  style: { navigationBarTitleText: '我的' },
+  style: {
+    navigationStyle: 'custom',
+    navigationBarTitleText: '我的',
+  },
 }
 </route>
 <template>

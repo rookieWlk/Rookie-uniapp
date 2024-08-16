@@ -1,17 +1,20 @@
 <route lang="json5" type="page">
 {
-  style: { navigationBarTitleText: '登录' },
+  style: {
+    navigationStyle: 'custom',
+    navigationBarTitleText: '登录',
+  },
 }
 </route>
 
-<!-- 蓝色登录页面2 -->
 <template>
+  <wd-navbar fixed placeholder title="登录" safeAreaInsetTop></wd-navbar>
   <view style="height: 100vh; background: #fff">
     <view class="img-a">
       <view class="t-b">
         您好，
         <br />
-        欢迎使用，XXX小程序
+        欢迎使用，Rooike小程序
       </view>
     </view>
     <view class="login-view" style="">
@@ -65,7 +68,7 @@ const login = () => {
     uni.showToast({ title: '请输入您的手机号', icon: 'none' })
     return
   }
-  if (!/^[1][3,4,5,7,8,9][0-9]{9}$/.test(that.phone)) {
+  if (!/^[1][3,4,5,7,8,9][0-9]{9}$/.test(phone.value)) {
     uni.showToast({ title: '请输入正确手机号', icon: 'none' })
     return
   }
@@ -74,9 +77,10 @@ const login = () => {
     return
   }
   uni.showToast({ title: '登录成功！', icon: 'none' })
-  userStore.setUserInfo({ nickname: '菲鸽', avatar: '', token: 'abcdef' })
+  userStore.setUserInfo({ nickname: 'Rookie', avatar: '', token: 'abcdef' })
   const { query } = currRoute()
-  uni.redirectTo({ url: query.redirect })
+  console.log(query, '=========================1111')
+  uni.reLaunch({ url: query.redirect })
 }
 // 注册按钮点击
 const reg = () => {
@@ -93,6 +97,12 @@ const qqLogin = () => {
 onLoad((opt) => {
   console.log('login onLoad', opt)
 })
+function handleBack() {
+  uni.navigateBack({})
+}
+function handleBackHome() {
+  uni.reLaunch({ url: '/pages/index/index' })
+}
 </script>
 <style lang="scss" scoped>
 .txt {

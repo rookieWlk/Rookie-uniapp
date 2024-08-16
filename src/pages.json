@@ -61,6 +61,7 @@
       "path": "pages/demo/index",
       "type": "page",
       "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "示例"
       }
     },
@@ -76,6 +77,7 @@
       "path": "pages/login/index",
       "type": "page",
       "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "登录"
       }
     },
@@ -83,6 +85,7 @@
       "path": "pages/my/index",
       "type": "page",
       "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "我的"
       }
     }
