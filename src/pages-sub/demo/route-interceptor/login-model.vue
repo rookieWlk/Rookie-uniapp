@@ -11,7 +11,7 @@
       <text>{{ isLogined ? '是' : '否' }}</text>
     </view>
     <view>这里有一个按钮（比如点赞按钮），点击这个按钮需要先登录</view>
-    <button type="primary" @tap="onClick" class="mt-4">点赞菲鸽</button>
+    <wd-button @tap="onClick" class="mt-4">点赞菲鸽</wd-button>
     <uv-modal
       ref="modal"
       title="登陆"

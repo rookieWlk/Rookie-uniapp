@@ -9,12 +9,54 @@
 </route>
 <template>
   <wd-navbar fixed placeholder title="首页" safeAreaInsetTop></wd-navbar>
-  <view
-    class="bg-white overflow-hidden pt-2 px-4"
-    :style="{ marginTop: safeAreaInsets?.top + 'px' }"
-  >
-    <view class="text-center text-4xl main-title-color mt-4 test-unocss-apply">Rookie uniapp</view>
-    <view class="text-justify max-w-100 m-auto text-4 indent mb-2">{{ description }}</view>
+  <view class="bg-gray-100">
+    <wd-search
+      v-model="value"
+      @focus="focus"
+      @blur="blur"
+      @search="search"
+      @clear="clear"
+      @cancel="cancel"
+      @change="change"
+      placeholder="请输入关键词"
+      maxlength="10"
+      hide-cancel
+      placeholder-left
+    />
+    <view class="my-2 px-4">
+      <wd-swiper
+        :list="swiperList"
+        autoplay
+        v-model:current="current"
+        :indicator="{ type: 'dots-bar' }"
+        @click="handleClick"
+        @change="onChange"
+      ></wd-swiper>
+    </view>
+    <wd-card>
+      <wd-grid :column="4">
+        <wd-grid-item icon="picture" text="文字" />
+        <wd-grid-item icon="picture" text="文字" />
+        <wd-grid-item icon="picture" text="文字" />
+        <wd-grid-item icon="picture" text="文字" />
+        <wd-grid-item icon="picture" text="文字" />
+        <wd-grid-item icon="picture" text="文字" />
+        <wd-grid-item icon="picture" text="文字" />
+        <wd-grid-item icon="picture" text="文字" />
+      </wd-grid>
+    </wd-card>
+    <view class="my-2 px-4 flex items-center justify-between">
+      <view class="text-sm text-gray-500">兴趣推荐</view>
+      <view class="text-sm text-gray-500 flex items-center">
+        <text>查看更多</text>
+        <i>
+          <wd-icon name="arrow-right" size="14" />
+        </i>
+      </view>
+    </view>
+    <wd-card>
+      <wd-status-tip image="content" tip="暂无内容" />
+    </wd-card>
   </view>
 </template>
 
@@ -22,12 +64,7 @@
 import { useUserStore } from '@/store'
 import { onShareAppMessage } from '@dcloudio/uni-app'
 import { getLastItem } from '@/utils'
-// 获取屏幕边界到安全区域距离
-const { safeAreaInsets } = uni.getSystemInfoSync()
 
-const description = ref(
-  'Rookie uniapp 是一个集成了多种工具和技术的 uniapp 开发模板，由 uniapp + Vue3 + Ts + Vite4 + UnoCss + UniUI + VSCode 构建，模板具有代码提示、自动格式化、统一配置、代码片段等功能，并内置了许多常用的基本组件和基本功能，让你编写 uniapp 拥有 best 体验。',
-)
 const userStore = useUserStore()
 
 const isLogined = computed(() => {
@@ -44,16 +81,47 @@ const loginRoute = '/pages/login/index'
 onReady(() => {
   const pages = getCurrentPages()
   const lastPage = getLastItem(pages)
-  console.log('route-interception.vue onReady last page:', isLogined.value, lastPage)
   const currRoute = (lastPage as any).$page
-  console.log('route-interception.vue onReady currRoute:', currRoute)
   if (!isLogined.value) {
     // redirect时都需要 encodeURIComponent 一下，否则获取到的参数不对
     const redirectRoute = `${loginRoute}?redirect=${encodeURIComponent(currRoute.fullPath)}`
     uni.redirectTo({ url: redirectRoute })
   }
 })
+const value = ref<string>('')
+function focus() {
+  console.log('聚焦')
+}
+function blur() {
+  console.log('失焦')
+}
+function search() {
+  console.log('搜索')
+}
+function clear() {
+  console.log('重置')
+}
+function cancel() {
+  console.log('取消')
+}
+function change({ value }) {
+  console.log('输入', value)
+}
+const current = ref<number>(0)
 
+const swiperList = ref([
+  'https://registry.npmmirror.com/wot-design-uni-assets/*/files/redpanda.jpg',
+  'https://registry.npmmirror.com/wot-design-uni-assets/*/files/capybara.jpg',
+  'https://registry.npmmirror.com/wot-design-uni-assets/*/files/panda.jpg',
+  'https://registry.npmmirror.com/wot-design-uni-assets/*/files/moon.jpg',
+  'https://registry.npmmirror.com/wot-design-uni-assets/*/files/meng.jpg',
+])
+function handleClick(e) {
+  console.log(e)
+}
+function onChange(e) {
+  console.log(e)
+}
 /** 激活“分享给好友” */
 onShareAppMessage((options: Page.ShareAppMessageOption): Page.CustomShareContent => {
   console.log('options:', options)

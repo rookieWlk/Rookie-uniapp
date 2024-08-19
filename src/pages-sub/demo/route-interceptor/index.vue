@@ -16,9 +16,9 @@
       用户是否已登录：
       <text>{{ isLogined ? '是' : '否' }}</text>
     </view>
-    <button v-if="!isLogined" @click="setUserInfo" class="mt-4" type="primary">登陆</button>
-    <button v-else @click="clearUserInfo" class="mt-4" type="warn">登出</button>
-    <button class="mt-8" @click="testAt">测试 Array.prototype.at</button>
+    <wd-button v-if="!isLogined" @click="setUserInfo" class="mt-4">登陆</wd-button>
+    <wd-button v-else @click="clearUserInfo" class="mt-4" type="warning">登出</wd-button>
+    <wd-button class="mt-8" @click="testAt">测试 Array.prototype.at</wd-button>
   </view>
 </template>
 
